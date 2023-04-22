@@ -1,0 +1,15 @@
+[package]
+name = "idl-compat"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "idl_compat"
+path = "src/lib.rs"
+
+[dependencies]
+idl-compat-core.workspace = true
+idl-compat-macro.workspace = true

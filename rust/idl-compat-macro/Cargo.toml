@@ -1,0 +1,21 @@
+[package]
+name = "idl-compat-macro"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "idl_compat_macro"
+path = "src/lib.rs"
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "*"
+protobuf = "3.2.0"
+
+syn.version = "*"
+syn.features = ["extra-traits"] 
+
+quote = "*"

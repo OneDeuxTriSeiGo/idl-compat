@@ -1,0 +1,9 @@
+# cargo generated folders
+debug/
+target/
+
+# rustfmt backup files
+**/*.rs.bk
+
+# MSVC debug info
+*.pdb

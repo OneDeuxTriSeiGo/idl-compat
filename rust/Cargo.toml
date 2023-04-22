@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = [ 
+    "idl-compat",
+    "idl-compat-core", 
+    "idl-compat-macro" 
+]
+
+[workspace.package]
+version    = "0.0.1"
+edition    = "2021"
+license    = "LGPL-3.0-or-later"
+repository = "https://github.com/OneDeuxTriSeiGo/idl-compat/"
+
+[workspace.dependencies]
+idl-compat-core.path = "idl-compat-core"
+idl-compat-macro.path = "idl-compat-macro"
+
+protobuf = "3.2.0"

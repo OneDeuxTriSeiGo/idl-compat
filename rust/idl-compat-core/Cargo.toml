@@ -1,0 +1,14 @@
+[package]
+name = "idl-compat-core"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "idl_compat_core"
+path = "src/lib.rs"
+
+[dependencies]
+protobuf.workspace = true
