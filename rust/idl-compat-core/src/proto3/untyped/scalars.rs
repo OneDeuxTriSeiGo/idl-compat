@@ -25,6 +25,7 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
+#[derive(Eq, Hash, PartialEq)]
 pub enum Integer {
     Bool,
     Int32,
@@ -39,6 +40,7 @@ pub enum Integer {
     SFixed64
 }
 
+#[derive(Eq, Hash, PartialEq)]
 pub enum Scalar {
     String,
     Integer(Integer),

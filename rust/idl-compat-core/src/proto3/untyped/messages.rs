@@ -30,6 +30,7 @@ use crate::proto3::untyped::maps::MapKeyType;
 use crate::proto3::untyped::maps::MapValueType;
 use crate::proto3::untyped::scalars::Scalar;
 
+#[derive(Eq, Hash, PartialEq)]
 pub enum FieldType {
     Any,
     EnumMessage(&'static EnumMessage),
@@ -38,6 +39,7 @@ pub enum FieldType {
     Scalar(Scalar)
 }
 
+#[derive(Eq, Hash, PartialEq)]
 pub enum FieldModifier {
     OneOf(&'static [u32]), //List of fields included in oneof
     Optional,
@@ -45,6 +47,7 @@ pub enum FieldModifier {
     Repeated
 }
 
+#[derive(Eq, Hash, PartialEq)]
 pub struct Field {
     name: &'static str,
     id: u32,
@@ -52,6 +55,7 @@ pub struct Field {
     field_mod: FieldModifier
 }
 
+#[derive(Eq, Hash, PartialEq)]
 pub struct Message {
     name: &'static str,
     fields: &'static [Field]

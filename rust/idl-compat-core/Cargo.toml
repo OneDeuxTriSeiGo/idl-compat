@@ -30,4 +30,5 @@ name = "idl_compat_core"
 path = "src/lib.rs"
 
 [dependencies]
+idl-compat-macro.workspace = true
 protobuf.workspace = true
