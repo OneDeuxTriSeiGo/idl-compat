@@ -25,4 +25,24 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+pub enum Integer {
+    Bool,
+    Int32,
+    Int64,
+    UInt32,
+    UInt64,
+    SInt32,
+    SInt64,
+    Fixed32,
+    Fixed64,
+    SFixed32,
+    SFixed64
+}
+
+pub enum Scalar {
+    String,
+    Integer(Integer),
+    Double,
+    Float,
+    Bytes
+}

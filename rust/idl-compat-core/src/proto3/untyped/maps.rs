@@ -25,4 +25,19 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+use crate::proto3::untyped::enums::EnumMessage;
+use crate::proto3::untyped::messages::Message;
+use crate::proto3::untyped::scalars::Integer;
+use crate::proto3::untyped::scalars::Scalar;
+
+pub enum MapKeyType {
+    String,
+    Integer(Integer)
+}
+
+pub enum MapValueType {
+    Any,
+    EnumMessage(&'static EnumMessage),
+    Message(&'static Message),
+    Scalar(Scalar)
+}

@@ -25,4 +25,5 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+pub mod typed;
+pub mod untyped;

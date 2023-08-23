@@ -25,4 +25,34 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+use crate::proto3::untyped::enums::EnumMessage;
+use crate::proto3::untyped::maps::MapKeyType;
+use crate::proto3::untyped::maps::MapValueType;
+use crate::proto3::untyped::scalars::Scalar;
+
+pub enum FieldType {
+    Any,
+    EnumMessage(&'static EnumMessage),
+    Map(MapKeyType, MapValueType),
+    Message(&'static Message),
+    Scalar(Scalar)
+}
+
+pub enum FieldModifier {
+    OneOf(&'static [u32]), //List of fields included in oneof
+    Optional,
+    OptionalRepeated,
+    Repeated
+}
+
+pub struct Field {
+    name: &'static str,
+    id: u32,
+    field_type: FieldType,
+    field_mod: FieldModifier
+}
+
+pub struct Message {
+    name: &'static str,
+    fields: &'static [Field]
+}

@@ -25,4 +25,18 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+mod enums;
+mod maps;
+mod messages;
+mod scalars;
+
+pub use enums::EnumMessage;
+pub use enums::EnumValue;
+pub use maps::MapKeyType;
+pub use maps::MapValueType;
+pub use messages::FieldType;
+pub use messages::FieldModifier;
+pub use messages::Field;
+pub use messages::Message;
+pub use scalars::Integer;
+pub use scalars::Scalar;

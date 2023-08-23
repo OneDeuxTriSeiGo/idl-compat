@@ -25,4 +25,36 @@
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
 // Documentation. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
-pub mod proto3;
+use crate::proto3::untyped;
+
+// Implemented by each Protobuf Message
+// - N fields : N impls. Same impl/over as Field.
+// - Const context.
+pub trait FieldType {
+    type TValue: 'static; // Any(), EnumMsg, Map, Msg, or Scalar
+
+    const UNTYPED_REPR: &'static untyped::FieldType;
+    const VALUE: &'static Self::TValue;
+}
+
+// Implemented by each Protobuf Message
+// - N messages with M fields each : NxM impls over (type, id) tuple
+// - - OR NxM impls by struct(Tmsg, Tfield, id).
+// - Const context.
+pub trait Field {
+    type TFieldType: 'static; //FieldType impl
+    const ID: u32;
+
+    const UNTYPED_REPR: &'static untyped::Field;
+    const FIELD_TYPE: &'static Self::TFieldType;
+}
+
+// Implemented by each Protobuf Message
+// - N messages : N impls
+// - Const context.
+pub trait Message {
+    type TFields: 'static; // HList/right tuple (T,(U,(V,(W,(X,(Y,Z))))))
+
+    const UNTYPED_REPR: &'static untyped::Message;
+    const FIELDS: &'static Self::TFields;
+}
