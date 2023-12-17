@@ -18,8 +18,9 @@
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
 //
 // IDL-Compat Documentation is licensed under the Creative Commons
-// Attribution-ShareAlike 4.0 International License. This includes any
-// documentation comments or `#[doc]` attributes present in this file.
+// Attribution-ShareAlike 4.0 International License. This only includes any
+// documentation comments or `#[doc]` attributes present in this file unless
+// explicitly indicated otherwise.
 //
 // You should have received a copy of the Creative Commons
 // Attribution-ShareAlike 4.0 International License along with the IDL-Compat
