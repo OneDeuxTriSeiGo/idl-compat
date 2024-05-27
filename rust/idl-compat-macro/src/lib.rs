@@ -15,4 +15,4 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.

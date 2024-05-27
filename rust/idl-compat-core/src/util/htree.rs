@@ -15,19 +15,26 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use core::marker::PhantomData;
-use typenum::{Cmp, Compare, Equal, Greater, Less, Unsigned};
+use typenum::{Cmp, Compare, Equal, Greater, Less, Ord, Unsigned};
 
 pub trait Field {
-    type ID;
+    type ID: Unsigned;
 }
 
 pub trait HTree {}
 
-pub trait HTreeChoice<ID, H, L, R, OrdT> {
-    type Output;
+pub trait HTreeChoice<ID, H, L, R, OrdT>
+where
+    ID: Unsigned,
+    H: Field,
+    L: HTree,
+    R: HTree,
+    OrdT: Ord,
+{
+    type Output: Field;
 }
 
 pub trait HTreeUnpack<ID, NodeT>
@@ -35,7 +42,7 @@ where
     ID: Unsigned,
     NodeT: HTree,
 {
-    type Output;
+    type Output: Field;
 }
 
 pub type HTreeChoiceOp<ID, H, L, R, OrdT> = <() as HTreeChoice<ID, H, L, R, OrdT>>::Output;
@@ -56,7 +63,13 @@ where
 
 impl HTree for HNil {}
 
-impl<H: Field, L: HTree, R: HTree> HTree for HNode<H, L, R> {}
+impl<H, L, R> HTree for HNode<H, L, R>
+where
+    H: Field,
+    L: HTree,
+    R: HTree,
+{
+}
 
 impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Equal> for ()
 where
@@ -101,6 +114,7 @@ where
     H: Field,
     ID: Cmp<<H as Field>::ID> + Unsigned,
     L: HTree,
+    Compare<ID, <H as Field>::ID>: Ord,
 {
     type Output = HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as Field>::ID>>;
 }

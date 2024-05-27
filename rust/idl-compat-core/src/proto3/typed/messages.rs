@@ -15,7 +15,7 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped;
 
@@ -45,7 +45,7 @@ pub trait Field {
 // - N messages : N impls
 // - Const context.
 pub trait Message {
-    type TFields: 'static; // HList/right tuple (T,(U,(V,(W,(X,(Y,Z))))))
+    type TFields: 'static; // HTree
 
     const UNTYPED_REPR: &'static untyped::Message;
     const FIELDS: &'static Self::TFields;

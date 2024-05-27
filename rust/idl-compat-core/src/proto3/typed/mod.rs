@@ -15,12 +15,12 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 mod maps;
 mod messages;
 
 pub use maps::MapValueType;
-pub use messages::FieldType;
 pub use messages::Field;
+pub use messages::FieldType;
 pub use messages::Message;

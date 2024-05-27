@@ -15,7 +15,7 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped::enums::EnumMessage;
 use crate::proto3::untyped::maps::MapKeyType;
@@ -28,7 +28,7 @@ pub enum FieldType {
     EnumMessage(&'static EnumMessage),
     Map(MapKeyType, MapValueType),
     Message(&'static Message),
-    Scalar(Scalar)
+    Scalar(Scalar),
 }
 
 #[derive(Eq, Hash, PartialEq)]
@@ -36,7 +36,7 @@ pub enum FieldModifier {
     OneOf(&'static [u32]), //List of fields included in oneof
     Optional,
     OptionalRepeated,
-    Repeated
+    Repeated,
 }
 
 #[derive(Eq, Hash, PartialEq)]
@@ -44,11 +44,11 @@ pub struct Field {
     name: &'static str,
     id: u32,
     field_type: FieldType,
-    field_mod: FieldModifier
+    field_mod: FieldModifier,
 }
 
 #[derive(Eq, Hash, PartialEq)]
 pub struct Message {
     name: &'static str,
-    fields: &'static [Field]
+    fields: &'static [Field],
 }

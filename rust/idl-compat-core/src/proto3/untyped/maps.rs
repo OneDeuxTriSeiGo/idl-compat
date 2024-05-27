@@ -15,7 +15,7 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped::enums::EnumMessage;
 use crate::proto3::untyped::messages::Message;
@@ -25,7 +25,7 @@ use crate::proto3::untyped::scalars::Scalar;
 #[derive(Eq, Hash, PartialEq)]
 pub enum MapKeyType {
     String,
-    Integer(Integer)
+    Integer(Integer),
 }
 
 #[derive(Eq, Hash, PartialEq)]
@@ -33,5 +33,5 @@ pub enum MapValueType {
     Any,
     EnumMessage(&'static EnumMessage),
     Message(&'static Message),
-    Scalar(Scalar)
+    Scalar(Scalar),
 }

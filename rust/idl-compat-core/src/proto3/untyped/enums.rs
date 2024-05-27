@@ -15,16 +15,16 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 #[derive(Eq, Hash, PartialEq)]
 pub struct EnumValue {
     name: &'static str,
-    id: u32
+    id: u32,
 }
 
 #[derive(Eq, Hash, PartialEq)]
 pub struct EnumMessage {
     name: &'static str,
-    values: &'static [EnumValue]
+    values: &'static [EnumValue],
 }

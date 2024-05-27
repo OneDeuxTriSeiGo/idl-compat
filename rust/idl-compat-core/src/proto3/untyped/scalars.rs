@@ -15,7 +15,7 @@
 // details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>. 
+// along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 #[derive(Eq, Hash, PartialEq)]
 pub enum Integer {
@@ -29,7 +29,7 @@ pub enum Integer {
     Fixed32,
     Fixed64,
     SFixed32,
-    SFixed64
+    SFixed64,
 }
 
 #[derive(Eq, Hash, PartialEq)]
@@ -38,5 +38,5 @@ pub enum Scalar {
     Integer(Integer),
     Double,
     Float,
-    Bytes
+    Bytes,
 }
