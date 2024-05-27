@@ -32,3 +32,4 @@ path = "src/lib.rs"
 [dependencies]
 idl-compat-macro.workspace = true
 protobuf.workspace = true
+typenum.workspace = true

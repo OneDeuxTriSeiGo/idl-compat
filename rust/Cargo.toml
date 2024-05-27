@@ -36,3 +36,4 @@ idl-compat-core.path = "idl-compat-core"
 idl-compat-macro.path = "idl-compat-macro"
 
 protobuf = "3.2.0"
+typenum = "1.15"
