@@ -26,5 +26,4 @@ pub trait MapValueType {
     type TValue: 'static; // Any(), EnumMsg, Msg, or Scalar
 
     const UNTYPED_REPR: &'static untyped::MapValueType;
-    const VALUE: &'static Self::TValue;
 }

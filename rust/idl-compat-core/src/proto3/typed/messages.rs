@@ -18,35 +18,32 @@
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped;
+use crate::util::{HField, HTree};
 
 // Implemented by each Protobuf Message
 // - N fields : N impls. Same impl/over as Field.
 // - Const context.
 pub trait FieldType {
-    type TValue: 'static; // Any(), EnumMsg, Map, Msg, or Scalar
+    type TValue; // Any(), EnumMsg, Map, Msg, or Scalar
 
     const UNTYPED_REPR: &'static untyped::FieldType;
-    const VALUE: &'static Self::TValue;
 }
 
 // Implemented by each Protobuf Message
 // - N messages with M fields each : NxM impls over (type, id) tuple
 // - - OR NxM impls by struct(Tmsg, Tfield, id).
 // - Const context.
-pub trait Field {
-    type TFieldType: 'static; //FieldType impl
-    const ID: u32;
+pub trait Field: HField {
+    type TFieldType: FieldType; //FieldType impl
 
     const UNTYPED_REPR: &'static untyped::Field;
-    const FIELD_TYPE: &'static Self::TFieldType;
 }
 
 // Implemented by each Protobuf Message
 // - N messages : N impls
 // - Const context.
 pub trait Message {
-    type TFields: 'static; // HTree
+    type TFields: HTree;
 
     const UNTYPED_REPR: &'static untyped::Message;
-    const FIELDS: &'static Self::TFields;
 }

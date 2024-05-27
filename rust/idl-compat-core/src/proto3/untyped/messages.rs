@@ -18,8 +18,7 @@
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped::enums::EnumMessage;
-use crate::proto3::untyped::maps::MapKeyType;
-use crate::proto3::untyped::maps::MapValueType;
+use crate::proto3::untyped::maps::{MapKeyType, MapValueType};
 use crate::proto3::untyped::scalars::Scalar;
 
 #[derive(Eq, Hash, PartialEq)]

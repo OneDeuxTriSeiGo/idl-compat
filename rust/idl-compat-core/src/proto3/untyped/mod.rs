@@ -22,13 +22,7 @@ mod maps;
 mod messages;
 mod scalars;
 
-pub use enums::EnumMessage;
-pub use enums::EnumValue;
-pub use maps::MapKeyType;
-pub use maps::MapValueType;
-pub use messages::Field;
-pub use messages::FieldModifier;
-pub use messages::FieldType;
-pub use messages::Message;
-pub use scalars::Integer;
-pub use scalars::Scalar;
+pub use enums::{EnumMessage, EnumValue};
+pub use maps::{MapKeyType, MapValueType};
+pub use messages::{Field, FieldModifier, FieldType, Message};
+pub use scalars::{Integer, Scalar};

@@ -21,6 +21,4 @@ mod maps;
 mod messages;
 
 pub use maps::MapValueType;
-pub use messages::Field;
-pub use messages::FieldType;
-pub use messages::Message;
+pub use messages::{Field, FieldType, Message};

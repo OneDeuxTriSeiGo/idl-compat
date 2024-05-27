@@ -19,8 +19,7 @@
 
 use crate::proto3::untyped::enums::EnumMessage;
 use crate::proto3::untyped::messages::Message;
-use crate::proto3::untyped::scalars::Integer;
-use crate::proto3::untyped::scalars::Scalar;
+use crate::proto3::untyped::scalars::{Integer, Scalar};
 
 #[derive(Eq, Hash, PartialEq)]
 pub enum MapKeyType {

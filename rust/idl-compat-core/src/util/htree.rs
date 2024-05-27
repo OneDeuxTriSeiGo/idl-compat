@@ -18,41 +18,29 @@
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use core::marker::PhantomData;
-use typenum::{Cmp, Compare, Equal, Greater, Less, Ord, Unsigned};
+use typenum::{Cmp, Compare, Ord, Unsigned};
 
-pub trait Field {
+pub trait HField {
     type ID: Unsigned;
 }
 
 pub trait HTree {}
-
-pub trait HTreeChoice<ID, H, L, R, OrdT>
-where
-    ID: Unsigned,
-    H: Field,
-    L: HTree,
-    R: HTree,
-    OrdT: Ord,
-{
-    type Output: Field;
-}
 
 pub trait HTreeUnpack<ID, NodeT>
 where
     ID: Unsigned,
     NodeT: HTree,
 {
-    type Output: Field;
+    type Output: HField;
 }
 
-pub type HTreeChoiceOp<ID, H, L, R, OrdT> = <() as HTreeChoice<ID, H, L, R, OrdT>>::Output;
 pub type HTreeUnpackOp<ID, NodeT> = <() as HTreeUnpack<ID, NodeT>>::Output;
 
 pub struct HNil;
 
 pub struct HNode<H, L, R>
 where
-    H: Field,
+    H: HField,
     L: HTree,
     R: HTree,
 {
@@ -61,60 +49,78 @@ where
     pub rhs: PhantomData<R>,
 }
 
+mod prv {
+    use super::{HField, HNode, HTree, HTreeUnpack, HTreeUnpackOp};
+    use typenum::{Cmp, Equal, Greater, Less, Ord, Unsigned};
+
+    pub trait HTreeChoice<ID, H, L, R, OrdT>
+    where
+        ID: Unsigned,
+        H: HField,
+        L: HTree,
+        R: HTree,
+        OrdT: Ord,
+    {
+        type Output: HField;
+    }
+
+    pub type HTreeChoiceOp<ID, H, L, R, OrdT> = <() as HTreeChoice<ID, H, L, R, OrdT>>::Output;
+
+    impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Equal> for ()
+    where
+        R: HTree,
+        HNode<H, L, R>: HTree,
+        H: HField,
+        ID: Cmp<<H as HField>::ID> + Unsigned,
+        L: HTree,
+    {
+        type Output = H;
+    }
+
+    impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Less> for ()
+    where
+        R: HTree,
+        HNode<H, L, R>: HTree,
+        (): HTreeUnpack<ID, L>,
+        H: HField,
+        ID: Cmp<<H as HField>::ID> + Unsigned,
+        L: HTree,
+    {
+        type Output = HTreeUnpackOp<ID, L>;
+    }
+
+    impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Greater> for ()
+    where
+        R: HTree,
+        HNode<H, L, R>: HTree,
+        (): HTreeUnpack<ID, R>,
+        H: HField,
+        ID: Cmp<<H as HField>::ID> + Unsigned,
+        L: HTree,
+    {
+        type Output = HTreeUnpackOp<ID, R>;
+    }
+}
+
 impl HTree for HNil {}
 
 impl<H, L, R> HTree for HNode<H, L, R>
 where
-    H: Field,
+    H: HField,
     L: HTree,
     R: HTree,
 {
-}
-
-impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Equal> for ()
-where
-    R: HTree,
-    HNode<H, L, R>: HTree,
-    H: Field,
-    ID: Cmp<<H as Field>::ID> + Unsigned,
-    L: HTree,
-{
-    type Output = H;
-}
-
-impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Less> for ()
-where
-    R: HTree,
-    HNode<H, L, R>: HTree,
-    (): HTreeUnpack<ID, L>,
-    H: Field,
-    ID: Cmp<<H as Field>::ID> + Unsigned,
-    L: HTree,
-{
-    type Output = <() as HTreeUnpack<ID, L>>::Output;
-}
-
-impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Greater> for ()
-where
-    R: HTree,
-    HNode<H, L, R>: HTree,
-    (): HTreeUnpack<ID, R>,
-    H: Field,
-    ID: Cmp<<H as Field>::ID> + Unsigned,
-    L: HTree,
-{
-    type Output = <() as HTreeUnpack<ID, R>>::Output;
 }
 
 impl<ID, H, L, R> HTreeUnpack<ID, HNode<H, L, R>> for ()
 where
     R: HTree,
     HNode<H, L, R>: HTree,
-    (): HTreeChoice<ID, H, L, R, Compare<ID, <H as Field>::ID>>,
-    H: Field,
-    ID: Cmp<<H as Field>::ID> + Unsigned,
+    (): prv::HTreeChoice<ID, H, L, R, Compare<ID, <H as HField>::ID>>,
+    H: HField,
+    ID: Cmp<<H as HField>::ID> + Unsigned,
     L: HTree,
-    Compare<ID, <H as Field>::ID>: Ord,
+    Compare<ID, <H as HField>::ID>: Ord,
 {
-    type Output = HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as Field>::ID>>;
+    type Output = prv::HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as HField>::ID>>;
 }

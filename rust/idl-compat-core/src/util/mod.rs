@@ -19,4 +19,4 @@
 
 pub mod htree;
 
-pub use htree::HTree;
+pub use htree::{HField, HNil, HNode, HTree, HTreeUnpack, HTreeUnpackOp};
