@@ -19,11 +19,19 @@
 
 use crate::proto3::untyped;
 
+pub trait MapKeyType {
+    // TODO:
+}
+
 // Implemented for each type used in a map.
 // - N unique types : N impls.
 // - Const context.
 pub trait MapValueType {
-    type TValue: 'static; // Any(), EnumMsg, Msg, or Scalar
+    type TValue; // Any(), EnumMsg, Msg, or Scalar
 
     const UNTYPED_REPR: &'static untyped::MapValueType;
+}
+
+pub trait MapType {
+    //TODO:
 }

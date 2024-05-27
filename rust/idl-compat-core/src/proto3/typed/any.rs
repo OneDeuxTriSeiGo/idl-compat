@@ -1,5 +1,3 @@
-// SPDX-FileCopyrightText: 2023 Jacob Abel <jacobabel@nullpo.dev>
-//
 // SPDX-License-Identifier: LGPL-3.0-or-later
 //
 // This file is part of IDL-Compat.
@@ -17,17 +15,4 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-mod any;
-mod enums;
-mod maps;
-mod messages;
-mod scalars;
-
-pub use any::Any;
-pub use enums::EnumMessage;
-pub use maps::{MapKeyType, MapType, MapValueType};
-pub use messages::{Field, FieldType, Message};
-pub use scalars::{
-    Bool, Bytes, Double, Fixed32, Fixed64, Float, Int32, Int64, Integer, SFixed32, SFixed64,
-    SInt32, SInt64, Scalar, String, UInt32, UInt64,
-};
+pub trait Any {}

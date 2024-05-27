@@ -17,11 +17,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
+mod any;
 mod enums;
 mod maps;
 mod messages;
 mod scalars;
 
+pub use any::Any;
 pub use enums::{EnumMessage, EnumValue};
 pub use maps::{MapKeyType, MapValueType};
 pub use messages::{Field, FieldModifier, FieldType, Message};
