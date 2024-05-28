@@ -18,14 +18,14 @@
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::proto3::untyped::enums::EnumMessage;
-use crate::proto3::untyped::maps::{MapKeyType, MapValueType};
+use crate::proto3::untyped::maps::{MapKey, MapValue};
 use crate::proto3::untyped::scalars::Scalar;
 
 #[derive(Eq, Hash, PartialEq)]
 pub enum FieldType {
     Any,
     EnumMessage(&'static EnumMessage),
-    Map(MapKeyType, MapValueType),
+    Map(MapKey, MapValue),
     Message(&'static Message),
     Scalar(Scalar),
 }

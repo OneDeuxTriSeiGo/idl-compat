@@ -33,3 +33,4 @@ path = "src/lib.rs"
 idl-compat-macro.workspace = true
 protobuf.workspace = true
 typenum.workspace = true
+trait-gen.workspace = true

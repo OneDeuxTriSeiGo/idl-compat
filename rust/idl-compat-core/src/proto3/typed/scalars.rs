@@ -17,9 +17,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-pub trait Scalar {}
+use crate::proto3::typed;
+use trait_gen::trait_gen;
 
-pub trait Integer: Scalar {}
+pub trait Scalar: typed::MapValue {}
+pub trait Integer: Scalar + typed::MapKey {}
 
 pub struct String;
 pub struct Double;
@@ -38,30 +40,15 @@ pub struct Fixed64;
 pub struct SFixed32;
 pub struct SFixed64;
 
-impl Scalar for String {}
-impl Scalar for Double {}
-impl Scalar for Float {}
-impl Scalar for Bytes {}
-impl Scalar for Bool {}
-impl Scalar for Int32 {}
-impl Scalar for Int64 {}
-impl Scalar for UInt32 {}
-impl Scalar for UInt64 {}
-impl Scalar for SInt32 {}
-impl Scalar for SInt64 {}
-impl Scalar for Fixed32 {}
-impl Scalar for Fixed64 {}
-impl Scalar for SFixed32 {}
-impl Scalar for SFixed64 {}
+#[trait_gen(T -> typed::MapKey, typed::MapValue, Scalar, Integer)]
+#[trait_gen(S ->
+    Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
+    Fixed32, Fixed64, SFixed32, SFixed64
+)]
+impl T for S {}
 
-impl Integer for Bool {}
-impl Integer for Int32 {}
-impl Integer for Int64 {}
-impl Integer for UInt32 {}
-impl Integer for UInt64 {}
-impl Integer for SInt32 {}
-impl Integer for SInt64 {}
-impl Integer for Fixed32 {}
-impl Integer for Fixed64 {}
-impl Integer for SFixed32 {}
-impl Integer for SFixed64 {}
+impl typed::MapKey for String {}
+
+#[trait_gen(T -> typed::MapValue, Scalar)]
+#[trait_gen(S -> String, Double, Float, Bytes)]
+impl T for S {}

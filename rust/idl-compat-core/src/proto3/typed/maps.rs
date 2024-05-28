@@ -17,21 +17,20 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-use crate::proto3::untyped;
+//use crate::proto3::untyped;
+//use crate::proto3::typed;
 
-pub trait MapKeyType {
-    // TODO:
-}
+pub trait MapKey {}
 
 // Implemented for each type used in a map.
 // - N unique types : N impls.
 // - Const context.
-pub trait MapValueType {
-    type TValue; // Any(), EnumMsg, Msg, or Scalar
+pub trait MapValue {
+    //type TValue; // Any(), EnumMsg, Msg, or Scalar
 
-    const UNTYPED_REPR: &'static untyped::MapValueType;
+    //const UNTYPED_REPR: &'static untyped::MapValue;
 }
 
-pub trait MapType {
+pub trait Map {
     //TODO:
 }

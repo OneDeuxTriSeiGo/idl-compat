@@ -25,6 +25,6 @@ mod scalars;
 
 pub use any::Any;
 pub use enums::{EnumMessage, EnumValue};
-pub use maps::{MapKeyType, MapValueType};
+pub use maps::{MapKey, MapValue};
 pub use messages::{Field, FieldModifier, FieldType, Message};
 pub use scalars::{Integer, Scalar};

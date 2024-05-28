@@ -22,13 +22,13 @@ use crate::proto3::untyped::messages::Message;
 use crate::proto3::untyped::scalars::{Integer, Scalar};
 
 #[derive(Eq, Hash, PartialEq)]
-pub enum MapKeyType {
+pub enum MapKey {
     String,
     Integer(Integer),
 }
 
 #[derive(Eq, Hash, PartialEq)]
-pub enum MapValueType {
+pub enum MapValue {
     Any,
     EnumMessage(&'static EnumMessage),
     Message(&'static Message),

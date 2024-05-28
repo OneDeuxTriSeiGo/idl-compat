@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-use crate::proto3::untyped;
+use crate::proto3::{typed, untyped};
 use crate::util::{HField, HTree};
 
 // Implemented by each Protobuf Message
@@ -42,7 +42,7 @@ pub trait Field: HField {
 // Implemented by each Protobuf Message
 // - N messages : N impls
 // - Const context.
-pub trait Message {
+pub trait Message: typed::MapValue {
     type TFields: HTree;
 
     const UNTYPED_REPR: &'static untyped::Message;
