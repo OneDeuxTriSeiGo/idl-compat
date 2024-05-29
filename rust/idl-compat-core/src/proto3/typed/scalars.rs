@@ -20,7 +20,10 @@
 use crate::proto3::{typed, untyped};
 use trait_gen::trait_gen;
 
-pub trait Scalar: untyped::ToScalar + typed::MapValue {}
+pub trait Scalar:
+    untyped::ToScalar + typed::FieldType + typed::MapValue
+{
+}
 pub trait Integer: untyped::ToInteger + Scalar + typed::MapKey {}
 
 pub struct String;
@@ -113,14 +116,25 @@ impl untyped::ToScalar for T {
 #[trait_gen(S -> String, Double, Float, Bytes)]
 impl T for S {}
 
-#[trait_gen(T -> typed::MapKey, Scalar, Integer)]
+#[trait_gen(T -> Scalar, Integer)]
 #[trait_gen(S ->
     Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
     Fixed32, Fixed64, SFixed32, SFixed64
 )]
 impl T for S {}
 
-impl typed::MapKey for String {}
+#[trait_gen(T ->
+    Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
+    Fixed32, Fixed64, SFixed32, SFixed64
+)]
+impl typed::MapKey for T {
+    const UNTYPED_REPR: untyped::MapKey =
+        untyped::MapKey::Integer(<T as untyped::ToInteger>::RESULT);
+}
+
+impl typed::MapKey for String {
+    const UNTYPED_REPR: untyped::MapKey = untyped::MapKey::String;
+}
 
 #[trait_gen(T -> String, Double, Float, Bytes)]
 impl typed::MapValue for T {
@@ -136,4 +150,14 @@ impl typed::MapValue for T {
     const UNTYPED_REPR: untyped::MapValue = untyped::MapValue::Scalar(
         untyped::Scalar::Integer(<T as untyped::ToInteger>::RESULT),
     );
+}
+
+#[trait_gen(T ->
+    String, Double, Float, Bytes, Bool,
+    Int32, Int64, UInt32, UInt64, SInt32, SInt64,
+    Fixed32, Fixed64, SFixed32, SFixed64
+)]
+impl typed::FieldType for T {
+    const UNTYPED_REPR: untyped::FieldType =
+        untyped::FieldType::Scalar(<T as untyped::ToScalar>::RESULT);
 }

@@ -19,6 +19,6 @@
 
 use crate::proto3::{typed, untyped};
 
-pub trait EnumMessage: typed::MapValue {
+pub trait EnumMessage: typed::FieldType + typed::MapValue {
     const UNTYPED_REPR: untyped::EnumMessage;
 }

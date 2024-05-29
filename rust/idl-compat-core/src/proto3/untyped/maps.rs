@@ -17,9 +17,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-use crate::proto3::untyped::enums::EnumMessage;
-use crate::proto3::untyped::messages::Message;
-use crate::proto3::untyped::scalars::{Integer, Scalar};
+use crate::proto3::untyped::{EnumMessage, Integer, Message, Scalar};
 
 #[derive(Eq, Hash, PartialEq)]
 pub enum MapKey {

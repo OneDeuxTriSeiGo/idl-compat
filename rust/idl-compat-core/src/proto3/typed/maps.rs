@@ -17,9 +17,12 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-use crate::proto3::untyped;
+use crate::proto3::{typed, untyped};
+use core::marker::PhantomData;
 
-pub trait MapKey {}
+pub trait MapKey {
+    const UNTYPED_REPR: untyped::MapKey;
+}
 
 // Implemented for each type used in a map.
 // - N unique types : N impls.
@@ -28,9 +31,22 @@ pub trait MapValue {
     const UNTYPED_REPR: untyped::MapValue;
 }
 
-pub trait Map<TKey, TValue>
+pub struct Map<TKey, TValue>
 where
     TKey: MapKey,
     TValue: MapValue,
 {
+    pub key: PhantomData<TKey>,
+    pub value: PhantomData<TValue>,
+}
+
+impl<TKey, TValue> typed::FieldType for Map<TKey, TValue>
+where
+    TKey: MapKey,
+    TValue: MapValue,
+{
+    const UNTYPED_REPR: untyped::FieldType = untyped::FieldType::Map(
+        <TKey as MapKey>::UNTYPED_REPR,
+        <TValue as MapValue>::UNTYPED_REPR,
+    );
 }

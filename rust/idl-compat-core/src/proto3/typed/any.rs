@@ -19,6 +19,10 @@ use crate::proto3::{typed, untyped};
 
 pub struct Any;
 
+impl typed::FieldType for Any {
+    const UNTYPED_REPR: untyped::FieldType = untyped::FieldType::Any;
+}
+
 impl typed::MapValue for Any {
     const UNTYPED_REPR: untyped::MapValue = untyped::MapValue::Any;
 }

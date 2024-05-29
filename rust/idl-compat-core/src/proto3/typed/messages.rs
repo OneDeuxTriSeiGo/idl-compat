@@ -24,26 +24,49 @@ use crate::util::{HField, HTree};
 // - N fields : N impls. Same impl/over as Field.
 // - Const context.
 pub trait FieldType {
-    type TValue; // Any(), EnumMsg, Map, Msg, or Scalar
-
     const UNTYPED_REPR: untyped::FieldType;
+}
+
+pub trait FieldModifier {
+    const UNTYPED_REPR: untyped::FieldModifier;
 }
 
 // Implemented by each Protobuf Message
 // - N messages with M fields each : NxM impls over (type, id) tuple
 // - - OR NxM impls by struct(Tmsg, Tfield, id).
 // - Const context.
-pub trait Field: HField {
-    type TFieldType: FieldType; //FieldType impl
-
+pub trait Field: HField + FieldType + FieldModifier {
     const UNTYPED_REPR: untyped::Field;
 }
 
 // Implemented by each Protobuf Message
 // - N messages : N impls
 // - Const context.
-pub trait Message: typed::MapValue {
+pub trait Message: typed::FieldType + typed::MapValue {
     type TFields: HTree;
 
     const UNTYPED_REPR: untyped::Message;
+}
+
+pub trait OneOf: FieldModifier {
+    type TFields: HTree;
+}
+
+pub struct Optional;
+pub struct OptionalRepeated;
+pub struct Repeated;
+
+impl FieldModifier for Optional {
+    const UNTYPED_REPR: untyped::FieldModifier =
+        untyped::FieldModifier::Optional;
+}
+
+impl FieldModifier for OptionalRepeated {
+    const UNTYPED_REPR: untyped::FieldModifier =
+        untyped::FieldModifier::OptionalRepeated;
+}
+
+impl FieldModifier for Repeated {
+    const UNTYPED_REPR: untyped::FieldModifier =
+        untyped::FieldModifier::Repeated;
 }
