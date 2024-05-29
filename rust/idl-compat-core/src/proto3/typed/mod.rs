@@ -28,6 +28,6 @@ pub use enums::EnumMessage;
 pub use maps::{Map, MapKey, MapValue};
 pub use messages::{Field, FieldType, Message};
 pub use scalars::{
-    Bool, Bytes, Double, Fixed32, Fixed64, Float, Int32, Int64, Integer, SFixed32, SFixed64,
-    SInt32, SInt64, Scalar, String, UInt32, UInt64,
+    Bool, Bytes, Double, Fixed32, Fixed64, Float, Int32, Int64, Integer,
+    SFixed32, SFixed64, SInt32, SInt64, Scalar, String, UInt32, UInt64,
 };

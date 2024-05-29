@@ -40,3 +40,10 @@ pub enum Scalar {
     Float,
     Bytes,
 }
+
+pub trait ToScalar {
+    const RESULT: Scalar;
+}
+pub trait ToInteger {
+    const RESULT: Integer;
+}

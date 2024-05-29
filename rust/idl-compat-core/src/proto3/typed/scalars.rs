@@ -17,11 +17,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-use crate::proto3::typed;
+use crate::proto3::{typed, untyped};
 use trait_gen::trait_gen;
 
-pub trait Scalar: typed::MapValue {}
-pub trait Integer: Scalar + typed::MapKey {}
+pub trait Scalar: untyped::ToScalar + typed::MapValue {}
+pub trait Integer: untyped::ToInteger + Scalar + typed::MapKey {}
 
 pub struct String;
 pub struct Double;
@@ -40,7 +40,80 @@ pub struct Fixed64;
 pub struct SFixed32;
 pub struct SFixed64;
 
-#[trait_gen(T -> typed::MapKey, typed::MapValue, Scalar, Integer)]
+impl untyped::ToInteger for Bool {
+    const RESULT: untyped::Integer = untyped::Integer::Bool;
+}
+
+impl untyped::ToInteger for Int32 {
+    const RESULT: untyped::Integer = untyped::Integer::Int32;
+}
+
+impl untyped::ToInteger for Int64 {
+    const RESULT: untyped::Integer = untyped::Integer::Int64;
+}
+
+impl untyped::ToInteger for UInt32 {
+    const RESULT: untyped::Integer = untyped::Integer::UInt32;
+}
+
+impl untyped::ToInteger for UInt64 {
+    const RESULT: untyped::Integer = untyped::Integer::UInt64;
+}
+
+impl untyped::ToInteger for SInt32 {
+    const RESULT: untyped::Integer = untyped::Integer::SInt32;
+}
+
+impl untyped::ToInteger for SInt64 {
+    const RESULT: untyped::Integer = untyped::Integer::SInt64;
+}
+
+impl untyped::ToInteger for Fixed32 {
+    const RESULT: untyped::Integer = untyped::Integer::Fixed32;
+}
+
+impl untyped::ToInteger for Fixed64 {
+    const RESULT: untyped::Integer = untyped::Integer::Fixed64;
+}
+
+impl untyped::ToInteger for SFixed32 {
+    const RESULT: untyped::Integer = untyped::Integer::SFixed32;
+}
+
+impl untyped::ToInteger for SFixed64 {
+    const RESULT: untyped::Integer = untyped::Integer::SFixed64;
+}
+
+impl untyped::ToScalar for String {
+    const RESULT: untyped::Scalar = untyped::Scalar::String;
+}
+
+impl untyped::ToScalar for Double {
+    const RESULT: untyped::Scalar = untyped::Scalar::Double;
+}
+
+impl untyped::ToScalar for Float {
+    const RESULT: untyped::Scalar = untyped::Scalar::Float;
+}
+
+impl untyped::ToScalar for Bytes {
+    const RESULT: untyped::Scalar = untyped::Scalar::Bytes;
+}
+
+#[trait_gen(T ->
+    Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
+    Fixed32, Fixed64, SFixed32, SFixed64
+)]
+impl untyped::ToScalar for T {
+    const RESULT: untyped::Scalar =
+        untyped::Scalar::Integer(<T as untyped::ToInteger>::RESULT);
+}
+
+#[trait_gen(T -> Scalar)]
+#[trait_gen(S -> String, Double, Float, Bytes)]
+impl T for S {}
+
+#[trait_gen(T -> typed::MapKey, Scalar, Integer)]
 #[trait_gen(S ->
     Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
     Fixed32, Fixed64, SFixed32, SFixed64
@@ -49,6 +122,18 @@ impl T for S {}
 
 impl typed::MapKey for String {}
 
-#[trait_gen(T -> typed::MapValue, Scalar)]
-#[trait_gen(S -> String, Double, Float, Bytes)]
-impl T for S {}
+#[trait_gen(T -> String, Double, Float, Bytes)]
+impl typed::MapValue for T {
+    const UNTYPED_REPR: untyped::MapValue =
+        untyped::MapValue::Scalar(<T as untyped::ToScalar>::RESULT);
+}
+
+#[trait_gen(T ->
+    Bool, Int32, Int64, UInt32, UInt64, SInt32, SInt64,
+    Fixed32, Fixed64, SFixed32, SFixed64
+)]
+impl typed::MapValue for T {
+    const UNTYPED_REPR: untyped::MapValue = untyped::MapValue::Scalar(
+        untyped::Scalar::Integer(<T as untyped::ToInteger>::RESULT),
+    );
+}

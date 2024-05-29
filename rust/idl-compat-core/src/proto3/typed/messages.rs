@@ -26,7 +26,7 @@ use crate::util::{HField, HTree};
 pub trait FieldType {
     type TValue; // Any(), EnumMsg, Map, Msg, or Scalar
 
-    const UNTYPED_REPR: &'static untyped::FieldType;
+    const UNTYPED_REPR: untyped::FieldType;
 }
 
 // Implemented by each Protobuf Message
@@ -36,7 +36,7 @@ pub trait FieldType {
 pub trait Field: HField {
     type TFieldType: FieldType; //FieldType impl
 
-    const UNTYPED_REPR: &'static untyped::Field;
+    const UNTYPED_REPR: untyped::Field;
 }
 
 // Implemented by each Protobuf Message
@@ -45,5 +45,5 @@ pub trait Field: HField {
 pub trait Message: typed::MapValue {
     type TFields: HTree;
 
-    const UNTYPED_REPR: &'static untyped::Message;
+    const UNTYPED_REPR: untyped::Message;
 }

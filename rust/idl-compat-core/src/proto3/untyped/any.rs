@@ -15,4 +15,4 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
-pub struct Any {}
+pub struct Any;

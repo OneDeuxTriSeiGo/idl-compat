@@ -64,7 +64,8 @@ mod prv {
         type Output: HField;
     }
 
-    pub type HTreeChoiceOp<ID, H, L, R, OrdT> = <() as HTreeChoice<ID, H, L, R, OrdT>>::Output;
+    pub type HTreeChoiceOp<ID, H, L, R, OrdT> =
+        <() as HTreeChoice<ID, H, L, R, OrdT>>::Output;
 
     impl<ID, H, L, R> HTreeChoice<ID, H, L, R, Equal> for ()
     where
@@ -122,5 +123,6 @@ where
     L: HTree,
     Compare<ID, <H as HField>::ID>: Ord,
 {
-    type Output = prv::HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as HField>::ID>>;
+    type Output =
+        prv::HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as HField>::ID>>;
 }
