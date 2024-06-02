@@ -126,3 +126,87 @@ where
     type Output =
         prv::HTreeChoiceOp<ID, H, L, R, Compare<ID, <H as HField>::ID>>;
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{HField, HNil, HNode, HTree, HTreeUnpackOp};
+    use typenum::{assert_type_eq, consts, Unsigned};
+
+    trait Bar {
+        type Val: HTree;
+    }
+
+    struct FieldA {}
+    struct FieldB {}
+    struct FieldC {}
+    struct FieldD {}
+    struct FieldE {}
+    struct FieldF {}
+    struct FieldG {}
+    struct FieldH {}
+
+    struct Foo {}
+
+    trait FieldVal: HField {
+        type IDV: Unsigned;
+    }
+
+    impl HField for FieldA {
+        type ID = consts::U10;
+    }
+    impl HField for FieldB {
+        type ID = consts::U2;
+    }
+    impl HField for FieldC {
+        type ID = consts::U1;
+    }
+    impl HField for FieldD {
+        type ID = consts::U3;
+    }
+    impl HField for FieldE {
+        type ID = consts::U13;
+    }
+    impl HField for FieldF {
+        type ID = consts::U11;
+    }
+    impl HField for FieldG {
+        type ID = consts::U55;
+    }
+    impl HField for FieldH {
+        type ID = consts::U54;
+    }
+
+    impl FieldVal for FieldF {
+        type IDV = consts::U11;
+    }
+
+    impl Bar for Foo {
+        type Val = HNode<
+            FieldA,
+            HNode<FieldB, HNode<FieldC, HNil, HNil>, HNode<FieldD, HNil, HNil>>,
+            HNode<
+                FieldE,
+                HNode<FieldF, HNil, HNil>,
+                HNode<FieldG, HNode<FieldH, HNil, HNil>, HNil>,
+            >,
+        >;
+    }
+
+    type Target = FieldF;
+    type Val = <Foo as Bar>::Val;
+    type Id = <Target as HField>::ID;
+
+    // Supress False Positive
+    #[allow(dead_code)]
+    type Result = HTreeUnpackOp<Id, Val>;
+
+    #[test]
+    fn check_types_match() {
+        assert_type_eq!(Target, Result);
+    }
+
+    #[test]
+    fn check_unconstrained_traits_accessible() {
+        assert_type_eq!(<Target as FieldVal>::IDV, <Result as FieldVal>::IDV);
+    }
+}
