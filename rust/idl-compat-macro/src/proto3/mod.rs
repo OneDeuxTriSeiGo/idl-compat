@@ -17,3 +17,27 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with IDL-Compat. If not, see <https://www.gnu.org/licenses/>.
 
+
+
+
+// Proc Macro Top Level TODO List
+//
+// - [ ] impl typed::EnumMessage
+//
+// - [ ] impl typed::MapValue
+//
+// - [ ] impl typed::FieldType
+//
+// - [ ] impl typed::FieldModifier
+//
+// - [ ] impl typed::OneOf
+//
+// - [ ] def MSGNAME_ONEOF_NUMIDS
+//
+// - [ ] def MSGNAME_DESC
+//
+// - [ ] def ENUMNAME_VALUES
+//
+// - [ ] def ENUMNAME_DESC
+//
+// - [ ] main Derive macro
